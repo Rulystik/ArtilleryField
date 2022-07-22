@@ -7,11 +7,11 @@ public class GameBootStrapper : MonoBehaviour
 {
     [SerializeField] private View view;
     [SerializeField] private MenuBehavior menuBehavior;
+    [SerializeField] private BattleFieldView battleFieldView;
     private Controller controller;
 
-    // Start is called before the first frame update
     void Start()
     {
-        controller = new Controller(view, menuBehavior);
+        controller = new Controller(view, menuBehavior, battleFieldView);
     }
 }

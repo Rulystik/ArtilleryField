@@ -13,6 +13,9 @@ public class MenuBehavior : MonoBehaviour
     void Start()
     {
         blackScreeen.SetActive(true);
+        menuPanel.SetActive(true);
+        menuPanel.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        BlackScreenFadeOnOff();
     }
 
     // Update is called once per frame
@@ -30,17 +33,30 @@ public class MenuBehavior : MonoBehaviour
         var image = blackScreeen.GetComponent<Image>();
         if (image.color.a == 1)
         {
-            image.DOFade(0, 0.3f).OnComplete(BlackScreeenActivity);
+            image.DOFade(0, 0.4f).OnComplete(BlackScreeenActivity);
         }
         else
         {
             BlackScreeenActivity();
-            image.DOFade(1, 0.3f);
+            image.DOFade(1, 0.4f);
         }
     }
 
     private void BlackScreeenActivity()
     {
         blackScreeen.SetActive(!blackScreeen.activeSelf);
+    }
+
+    public void MenuMoving()
+    {
+        var menuRect = menuPanel.GetComponent<RectTransform>();
+        if (menuRect.localPosition != Vector3.zero)
+        {
+            menuRect.DOAnchorPos(Vector2.zero, 0.3f);
+        }
+        else
+        {
+            menuRect.DOAnchorPos(new Vector2(Screen.width * -2, 0), 0.3f);
+        }
     }
 }
